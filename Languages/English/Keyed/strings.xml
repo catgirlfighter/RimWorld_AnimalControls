@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<FoodRestrictionPlants>Plants</FoodRestrictionPlants>
+	<AnimalControlsDefault>&lt;default&gt;</AnimalControlsDefault>
+	<AnimalControlsAnimalRestrictionLabel>Default Animal Restriction</AnimalControlsAnimalRestrictionLabel>
+	<AnimalControlsHandlerRestrictionLabel>Handler Restriction</AnimalControlsHandlerRestrictionLabel>
+	<AnimalControlsDefaultsLabel>Defaults</AnimalControlsDefaultsLabel>
+</LanguageData>
