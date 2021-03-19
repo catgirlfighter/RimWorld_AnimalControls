@@ -1,4 +1,7 @@
-﻿1.0.2
+﻿1.0.3
+- fixed an issue, due to which handlers would take a lot of meals trying to start taming\training action, but still wouldn't do the action (handlers not suposed to use big meals at all);
+
+1.0.2
 - added Chinese Simplified translation. Thanks, HawnHan!
 
 1.0.1

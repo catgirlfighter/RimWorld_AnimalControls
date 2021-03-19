@@ -4,6 +4,10 @@ using Verse;
 
 namespace AnimalControls
 {
+    /* LOOK AT
+     * unlisted sources of nutrients
+    */
+
     public class Settings : ModSettings
     {
 
