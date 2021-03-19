@@ -33,6 +33,23 @@ namespace AnimalControls
         {
             var harmony = new Harmony("net.avilmask.rimworld.mod.AnimalControls");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
+           GetSettings<Settings>();
         }
+
+        public void Save()
+        {
+            LoadedModManager.GetMod<AnimalControls>().GetSettings<Settings>().Write();
+        }
+
+        public override string SettingsCategory()
+        {
+            return "AnimalControls";
+        }
+
+        public override void DoSettingsWindowContents(Rect inRect)
+        {
+            Settings.DoSettingsWindowContents(inRect);
+        }
+
     }
 }
