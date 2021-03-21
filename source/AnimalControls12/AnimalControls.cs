@@ -13,6 +13,8 @@ namespace AnimalControls
         public static ThingCategoryDef Plants;
         public static ThingCategoryDef Crops;
         public static ThingCategoryDef Trees;
+        public static ThingCategoryDef OtherEdible;
+
         public static JobDef AnimalControls_Wait_PayAttention;
     }
 
@@ -50,6 +52,5 @@ namespace AnimalControls
         {
             Settings.DoSettingsWindowContents(inRect);
         }
-
     }
 }

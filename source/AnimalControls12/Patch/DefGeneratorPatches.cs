@@ -16,10 +16,10 @@ namespace AnimalControls.Patch
         static bool Prefix()
         {
             Type TPlant = typeof(Plant);
-            IEnumerable<ThingDef> list = DefDatabase<ThingDef>.AllDefsListForReading.Where(x => (((x.thingClass == TPlant || x.thingClass.IsSubclassOf(TPlant)) && x.IsIngestible)));
+            IEnumerable<ThingDef> list = DefDatabase<ThingDef>.AllDefsListForReading.Where(x => (x.IsIngestible && !x.IsWithinCategory(ThingCategoryDefOf.Foods)/*(x.thingClass == TPlant || x.thingClass.IsSubclassOf(TPlant) || !x.IsWithinCategory(ThingCategoryDefOf.Foods))*/));
             foreach (var i in list)
             {
-                if (i.ingestible.foodType == FoodTypeFlags.Tree)
+                if (i.plant != null && i.ingestible.foodType == FoodTypeFlags.Tree)
                 {
                     if (i.thingCategories == null) i.thingCategories = new List<ThingCategoryDef>();
                     DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.Trees.defName, i, null);
@@ -29,10 +29,20 @@ namespace AnimalControls.Patch
                     if (i.thingCategories == null) i.thingCategories = new List<ThingCategoryDef>();
                     DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.Crops.defName, i, null);
                 }
-                else if (i.ingestible.foodType == FoodTypeFlags.Plant)
+                else if (i.plant != null && i.ingestible.foodType == FoodTypeFlags.Plant)
                 {
                     if (i.thingCategories == null) i.thingCategories = new List<ThingCategoryDef>();
                     DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.Plants.defName, i, null);
+                }
+                else// if (!i.IsWithinCategory(ThingCategoryDefOf.Foods))
+                {
+                    if (i.thingCategories == null)
+                    {
+                        i.thingCategories = new List<ThingCategoryDef>();
+                        DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.OtherEdible.defName, i, null);
+                    }
+                    else
+                        i.thingCategories.Add(AnimalControlsDefOf.OtherEdible);
                 }
             }
 

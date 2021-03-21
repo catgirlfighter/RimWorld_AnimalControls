@@ -1,4 +1,8 @@
-﻿1.0.3
+﻿1.0.4
+- added "other edible" category to the Foods category. Everything that doesn't go to the plants, is ingestible, but isn't in Foods category, goes to Other Edible;
+- you can now restrict everything else that can be eaten.
+
+1.0.3
 - fixed an issue, due to which handlers would take a lot of meals trying to start taming\training action, but still wouldn't do the action (handlers not suposed to use big meals at all);
 
 1.0.2

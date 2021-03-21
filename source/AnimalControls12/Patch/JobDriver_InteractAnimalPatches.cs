@@ -101,7 +101,6 @@ namespace AnimalControls.Patch
             yield return new CodeInstruction(OpCodes.Ldarg_0);
             yield return new CodeInstruction(OpCodes.Ldfld, Ltoil);
             yield return new CodeInstruction(OpCodes.Callvirt, LGetActor);
-            //yield return new CodeInstruction(OpCodes.Dup);
             yield return new CodeInstruction(OpCodes.Stloc_0);
             yield return new CodeInstruction(OpCodes.Ldloc_0);
             yield return new CodeInstruction(OpCodes.Callvirt, Lget_CurJob);
@@ -110,8 +109,6 @@ namespace AnimalControls.Patch
             yield return new CodeInstruction(OpCodes.Callvirt, LGetTarget);
             yield return new CodeInstruction(OpCodes.Call, Lop_Explicit);
             yield return new CodeInstruction(OpCodes.Castclass, typeof(Pawn));
-            //yield return new CodeInstruction(OpCodes.Stloc_0);
-            //yield return new CodeInstruction(OpCodes.Ldloc_0);
             yield return new CodeInstruction(OpCodes.Ldc_I4, 270);
             yield return new CodeInstruction(OpCodes.Ldloc_0);
             yield return new CodeInstruction(OpCodes.Ldc_I4_0);
