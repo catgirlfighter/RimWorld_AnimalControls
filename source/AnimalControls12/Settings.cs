@@ -4,6 +4,10 @@ using Verse;
 
 namespace AnimalControls
 {
+    /* LOOK AT
+     * unlisted sources of nutrients
+    */
+
     public class Settings : ModSettings
     {
 
@@ -14,8 +18,8 @@ namespace AnimalControls
         {
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.Begin(inRect);
-            listing_Standard.CheckboxLabeled("allow_feeding_with_plants_label".Translate(), ref allow_feeding_with_plants, "allow_feeding_with_plants_note".Translate());
-            listing_Standard.CheckboxLabeled("animals_pay_attention_label".Translate(), ref animals_pay_attention, "animals_pay_attention_note".Translate());
+            listing_Standard.CheckboxLabeled("ac_allow_feeding_with_plants_label".Translate(), ref allow_feeding_with_plants, "ac_allow_feeding_with_plants_note".Translate());
+            listing_Standard.CheckboxLabeled("ac_animals_pay_attention_label".Translate(), ref animals_pay_attention, "ac_animals_pay_attention_note".Translate());
             listing_Standard.End();
         }
 

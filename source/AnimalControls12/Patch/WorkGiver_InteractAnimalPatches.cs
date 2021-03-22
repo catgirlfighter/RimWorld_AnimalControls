@@ -9,9 +9,6 @@ namespace AnimalControls.Patch
 {
     //normally handlers take only the food that's below meal in quality
     //changing "not a meal" restriction to "<=0.1f nutition"
-
-    /* also must change JobDriver_IntercalAnimal.StartFeedAnimal and WorkGiver_InteractAnimal.TakeFoodForAnimalInteractJob. Too troublesome for now
-     * non-centralized checks are annoying T_T */
     [HarmonyPatch(typeof(WorkGiver_InteractAnimal), "HasFoodToInteractAnimal")]
     static class WorkGiver_InteractAnimal_HasFoodToInteractAnimal_AnimalControlsPatch
     {
@@ -66,7 +63,7 @@ namespace AnimalControls.Patch
                     }
                 }
                 //
-                if (i.opcode == OpCodes.Stfld && i.operand == (object)LminTotalNutrition)
+                if (i.opcode == OpCodes.Stsfld && i.operand == (object)LminTotalNutrition)
                 {
                     yield return i;
                     yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
