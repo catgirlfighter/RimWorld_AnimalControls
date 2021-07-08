@@ -5,6 +5,7 @@ using Verse;
 
 namespace AnimalControls.Patch
 {
+    /*
     //automatically allow eating plants for new restrictions
     [HarmonyPatch(typeof(FoodRestrictionDatabase), "MakeNewFoodRestriction")]
     static class FoodRestrictionDatabase_MakeNewFoodRestriction_AnimalControlsPatch
@@ -14,4 +15,5 @@ namespace AnimalControls.Patch
             __result.filter.SetAllow(AnimalControlsDefOf.Plants, true, null, null);
         }
     }
+    */
 }

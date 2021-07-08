@@ -1,5 +1,7 @@
 ﻿1.0.5
 - things for 1.3;
+- hey, 1.3 has it's own Plants food category!
+- drugs are not "ingestibles" any more. What's left can be seen in food by default;
 
 1.0.4
 - added "other edible" category to the Foods category. Everything that doesn't go to the plants, is ingestible, but isn't in Foods category, goes to Other Edible;
