@@ -29,6 +29,7 @@ namespace AnimalControls.Patch
         {
             MethodBase Lset_ar = AccessTools.Method(typeof(Pawn_PlayerSettings), "set_AreaRestriction");
             MethodBase Lset_values = AccessTools.Method(typeof(Hediff_Pregnant_DoBirthSpawn_AnimalControlsPatch), nameof(setvalues));
+            bool b0 = false;
             foreach (var i in instrs)
             {
                 yield return i;
@@ -38,8 +39,10 @@ namespace AnimalControls.Patch
                     yield return new CodeInstruction(OpCodes.Ldarg_1);
                     yield return new CodeInstruction(OpCodes.Ldloc_2);
                     yield return new CodeInstruction(OpCodes.Call, Lset_values);
+                    b0 = true;
                 }
             }
+            if (!b0) Log.Warning("[Animal Controls] set_AreaRestriction patch 0 didn't work");
         }
     }
 }

@@ -90,7 +90,6 @@ namespace AnimalControls.Patch
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
-            
             MethodInfo LPayAttention = AccessTools.Method(typeof(JobDriver_PayAttention), nameof(JobDriver_PayAttention.ForcePayAttention));
             FieldInfo Ltoil = AccessTools.Field(dc19_0, "toil");
             MethodInfo Lget_CurJob = AccessTools.Method(typeof(Pawn), "get_CurJob");

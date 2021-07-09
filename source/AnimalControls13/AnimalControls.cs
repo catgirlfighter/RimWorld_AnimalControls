@@ -22,7 +22,7 @@ namespace AnimalControls
     [StaticConstructorOnStartup]
     public class AnimalControls : Mod
     {
-        public const  float TrainAnimalNutritionLimit = 0.1f;
+        public static float TrainAnimalNutritionLimit = 0.1f;
         public static float BestFoodSourceOnMap_maxNutrition = float.MaxValue;
 
         public static void SetBestFoodSourceOnMap_maxNutrition(float val)

@@ -28,6 +28,7 @@ namespace AnimalControls.Patch
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
+            bool b0 = false;
             CodeInstruction oldi = null;
             foreach (var i in instrs)
             {
@@ -45,11 +46,13 @@ namespace AnimalControls.Patch
                         yield return new CodeInstruction(OpCodes.Brfalse, l);
                         yield return new CodeInstruction(OpCodes.Ldarg_1);
                         yield return new CodeInstruction(OpCodes.Call, LbelowNutrition);
+                        b0 = true;
                     }
                 }
                 oldi = i;
             }
             yield return oldi;
+            if (!b0) Log.Warning("[Animal Controls] BestFoodSourceOnMap patch 0 didn't work");
         }
     }
 
@@ -65,6 +68,7 @@ namespace AnimalControls.Patch
             FieldInfo Lplants = AccessTools.Field(typeof(AnimalControlsDefOf), nameof(AnimalControlsDefOf.Plants));
             MethodInfo LisWithinCategory = AccessTools.Method(typeof(ThingDef), nameof(ThingDef.IsWithinCategory));
             CodeInstruction oldi = null;
+            bool b0 = false;
             foreach (var i in instrs)
             {
                 if (oldi != null)
@@ -79,11 +83,13 @@ namespace AnimalControls.Patch
                         yield return new CodeInstruction(OpCodes.Ldfld, Ldef);
                         yield return new CodeInstruction(OpCodes.Ldsfld, Lplants);
                         yield return new CodeInstruction(OpCodes.Callvirt, LisWithinCategory);
+                        b0 = true;
                     }
                 }
                 oldi = i;
             }
             yield return oldi;
+            if (!b0) Log.Warning("[Animal Controls] WillEat patch 0 didn't work");
         }
     }
 

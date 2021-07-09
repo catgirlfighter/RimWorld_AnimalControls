@@ -55,6 +55,7 @@ namespace AnimalControls.Patch
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
+            bool b0 = false;
             MethodBase Ldfr = AccessTools.Method(typeof(FoodRestrictionDatabase), nameof(FoodRestrictionDatabase.DefaultFoodRestriction));
             MethodBase Lget = AccessTools.Method(typeof(Pawn_FoodRestrictionTracker_CurrentFoodRestriction_Getter_AnimalControlsPatch), nameof(Pawn_FoodRestrictionTracker_CurrentFoodRestriction_Getter_AnimalControlsPatch.getDefaultFoodRestriction));
             foreach (var i in instrs)
@@ -63,9 +64,11 @@ namespace AnimalControls.Patch
                 {
                     yield return new CodeInstruction(OpCodes.Ldarg_0);
                     i.operand = Lget;
+                    b0 = true;
                 }
                 yield return i;
             }
+            if (!b0) Log.Warning("[Animal Controls] CurrentFoodRestriction patch 0 didn't work");
         }
     }
 }
