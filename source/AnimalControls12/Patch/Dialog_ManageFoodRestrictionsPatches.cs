@@ -51,8 +51,9 @@ namespace AnimalControls.Patch
 
             GUI.BeginGroup(inRect);
 
-            Widgets.Label(new Rect(0f, 0f, 300f, 30f), "AnimalControlsAnimalRestrictionLabel".Translate());
-            if (Widgets.ButtonText(new Rect(310f, 0f, 150f, 30f), comp.DefaultRestriction.asText(), true, true, true))
+            Widgets.Label(new Rect(5f, 8f, 300f, 30f), "AnimalControlsAnimalRestrictionLabel".Translate());
+            Widgets.DrawHighlightIfMouseover(new Rect(0f, 0f, 460f, 35f));
+            if (Widgets.ButtonText(new Rect(310f, 0f, 150f, 35f), comp.DefaultRestriction.asText(), true, true, true))
             {
                 List<FloatMenuOption> list = new List<FloatMenuOption>();
                 list.Add(new FloatMenuOption("AnimalControlsDefault".Translate(), delegate ()
@@ -69,8 +70,9 @@ namespace AnimalControls.Patch
                 Find.WindowStack.Add(new FloatMenu(list));
             }
 
-            Widgets.Label(new Rect(0f, 40f, 300f, 30f), "AnimalControlsHandlerRestrictionLabel".Translate());
-            if (Widgets.ButtonText(new Rect(310f, 40f, 150f, 30f), comp.HandlerRestriction.asText(), true, true, true))
+            Widgets.Label(new Rect(5f, 48f, 300f, 30f), "AnimalControlsHandlerRestrictionLabel".Translate());
+            Widgets.DrawHighlightIfMouseover(new Rect(0f, 40f, 460f, 35f));
+            if (Widgets.ButtonText(new Rect(310f, 40f, 150f, 35f), comp.HandlerRestriction.asText(), true, true, true))
             {
                 List<FloatMenuOption> list = new List<FloatMenuOption>();
                 list.Add(new FloatMenuOption("AnimalControlsDefault".Translate(), delegate ()
@@ -94,14 +96,43 @@ namespace AnimalControls.Patch
 
         static void Postfix(Rect inRect)
         {
-            float num = 10f * 3 + 150f * 3;
-            Rect rect = new Rect(num, 0f, 150f, 35f);
-            if (Widgets.ButtonText(rect, "AnimalControlsDefaultsLabel".Translate(), true, true, true))
+            float num;
+            Rect rect;
+            if (AnimalControls.saveStorageSettingsModActive && !AnimalControls.lookingAtDefaults)
+            {
+                num = 10f * 2 + 150f * 2;
+                rect = new Rect(num, 50f, 150f, 35f);
+            }
+            else
+            {
+                num = 10f * 3 + 150f * 3;
+                rect = new Rect(num, 0f, 150f, 35f);
+            }
+            if (Widgets.ButtonText(rect, AnimalControls.lookingAtDefaults ? "Back".Translate() : "AnimalControlsDefaultsLabel".Translate(), true, true, true))
             {
                 AnimalControls.lookingAtDefaults = !AnimalControls.lookingAtDefaults;
             }
         }
 
+        class Dialog_ManageFoodRestrictions_ : Dialog_ManageFoodRestrictions
+        {
+            public Dialog_ManageFoodRestrictions_(FoodRestriction selectedFoodRestriction) : base(selectedFoodRestriction)
+            {
+            }
+
+            public Vector2 CloseButSize_ { get { return base.CloseButSize; } }
+        }
+
+        static bool Prefix(Dialog_ManageFoodRestrictions_ __instance, Rect inRect)
+        {
+            if (!AnimalControls.lookingAtDefaults)
+                return true;
+            Rect rect = new Rect(0f, -10f, inRect.width, inRect.height - 40f - __instance.CloseButSize_.y).ContractedBy(10f);
+            DefaultsMenu(__instance, rect);
+
+            return false;
+        }
+        /*
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
@@ -145,6 +176,7 @@ namespace AnimalControls.Patch
             }
             if (oldi != null) yield return oldi;
         }
+        */
     }
 
     [HarmonyPatch(typeof(Dialog_ManageFoodRestrictions), "PreClose")]

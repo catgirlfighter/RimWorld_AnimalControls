@@ -3,6 +3,7 @@ using System.Reflection;
 using Verse;
 using UnityEngine;
 using RimWorld;
+using System.Linq;
 
 namespace AnimalControls
 {
@@ -24,6 +25,8 @@ namespace AnimalControls
     {
         public static float TrainAnimalNutritionLimit = 0.1f;
         public static float BestFoodSourceOnMap_maxNutrition = float.MaxValue;
+        public static bool saveStorageSettingsModActive = ModsConfig.ActiveModsInLoadOrder.FirstOrDefault(x => x.PackageIdNonUnique == "savestoragesettings.kv.rw") != null;
+
 
         public static void SetBestFoodSourceOnMap_maxNutrition(float val)
         {
