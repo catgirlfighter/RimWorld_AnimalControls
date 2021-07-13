@@ -27,16 +27,19 @@ namespace AnimalControls
             pawn.jobs.StartJob(job, JobCondition.InterruptForced, null, true, true, null, null, false, false);
         }
 
-        public Job payAttentinoTo = null;
+        public string payAttentinoToID = null;
 
         public override void DecorateWaitToil(Toil wait)
         {
             Pawn TargetOfAttention = TargetA.Thing as Pawn;
             if (TargetOfAttention == null) throw new Exception("Can't pay attention to a null value");
-            payAttentinoTo = TargetOfAttention.CurJob;
-            //Log.Message($"{TargetOfAttention},{payAttentinoTo}");
+            payAttentinoToID = TargetOfAttention.CurJob.GetUniqueLoadID();
             base.DecorateWaitToil(wait);
-            wait.AddFailCondition(() => payAttentinoTo == null || payAttentinoTo != (TargetA.Thing as Pawn).CurJob);
+            wait.AddFailCondition(
+                delegate()
+                {
+                    return payAttentinoToID == null || payAttentinoToID != (TargetA.Thing as Pawn).CurJob.GetUniqueLoadID();
+                });
         }
     }
 }

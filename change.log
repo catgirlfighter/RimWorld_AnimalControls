@@ -1,4 +1,10 @@
-﻿1.0.7
+﻿1.0.9
+- increased limit from max 1 to max 10. But, serisously? That's some dino sized meals you've got there (1.2, 1.3);
+
+1.0.8
+- managed to finally catch a problem with animals staring at a handler until they pass out from exhaustion. Fixed it (1.2, 1.3);
+
+1.0.7
 - minor compatibility patch to address GUI overlap with SaveStorageSettings mod (1.2, 1.3);
 
 1.0.6

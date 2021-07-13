@@ -17,7 +17,7 @@ namespace AnimalControls
             listing_Standard.CheckboxLabeled("ac_allow_feeding_with_plants_label".Translate(), ref allow_feeding_with_plants, "ac_allow_feeding_with_plants_note".Translate());
             listing_Standard.CheckboxLabeled("ac_animals_pay_attention_label".Translate(), ref animals_pay_attention, "ac_animals_pay_attention_note".Translate());
             listing_Standard.Label("ac_nutrition_limit_per_piece".Translate(Math.Round(AnimalControls.TrainAnimalNutritionLimit, 2).ToString()));
-            AnimalControls.TrainAnimalNutritionLimit = listing_Standard.Slider(AnimalControls.TrainAnimalNutritionLimit, 0f, 1f);
+            AnimalControls.TrainAnimalNutritionLimit = listing_Standard.Slider(AnimalControls.TrainAnimalNutritionLimit, 0f, 10f);
             listing_Standard.End();
         }
 
