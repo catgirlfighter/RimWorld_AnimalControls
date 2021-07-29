@@ -49,7 +49,6 @@ namespace AnimalControls.Patch
                         DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.Plants.defName, i, null);
                     }
                 }
-                /*
                 else
                 {
                     if (i.thingCategories == null)
@@ -60,7 +59,7 @@ namespace AnimalControls.Patch
                     else
                         i.thingCategories.Add(AnimalControlsDefOf.OtherEdible);
                 }
-                */
+                
             }
 
             return true;
