@@ -1,4 +1,8 @@
-﻿1.0.10
+﻿1.0.11
+- ludeion fixed an issue with pawns ignoring restriction on drugs and plants, so I've removed some crutchy fixes;
+- fixed food restriction window;
+
+1.0.10
 - added back "other edible" category, because although 1.3 now has all other edible stuff in the restriction, it doesn't work because they're not in a food category. Not on animals anyway;
 
 1.0.9

@@ -51,7 +51,6 @@ namespace AnimalControls.Patch
             MethodInfo LsetMaxNutrition = AccessTools.Method(typeof(AnimalControls), nameof(AnimalControls.SetBestFoodSourceOnMap_maxNutrition));
             //
             CodeInstruction oldi = null;
-            //bool b0 = false;
             bool b1 = false;
             bool b2 = false;
             yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
@@ -71,29 +70,7 @@ namespace AnimalControls.Patch
                         b1 = true;
                         continue;
                     }
-
-                    /*
-                    if (i.opcode == OpCodes.Initobj && oldi.opcode == OpCodes.Ldsflda && oldi.operand == (object)LminTotalNutrition)
-                    {
-                        yield return i;
-                        yield return new CodeInstruction(OpCodes.Ldc_R4, float.MaxValue);
-                        oldi = new CodeInstruction(OpCodes.Call, LsetMaxNutrition);
-                        b0 = true;
-                        continue;
-                    }
-                    */
                 }
-
-                /*
-                if (i.opcode == OpCodes.Stsfld && i.operand == (object)LminTotalNutrition)
-                {
-                    yield return i;
-                    yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
-                    oldi = new CodeInstruction(OpCodes.Call, LsetMaxNutrition);
-                    b1 = true;
-                    continue;
-                }
-                */
                 //
                 if (i.opcode == OpCodes.Ldc_I4_5)
                 {
@@ -106,7 +83,6 @@ namespace AnimalControls.Patch
             }
             //
             yield return oldi;
-            //if (!b0) Log.Warning("[Animal Controls] TakeFoodForAnimalInteractJob patch 0 didn't work");
             if (!b1) Log.Warning("[Animal Controls] TakeFoodForAnimalInteractJob patch 1 didn't work");
             if (!b2) Log.Warning("[Animal Controls] TakeFoodForAnimalInteractJob patch 2 didn't work");
         }

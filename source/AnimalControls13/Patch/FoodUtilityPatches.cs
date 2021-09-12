@@ -57,6 +57,7 @@ namespace AnimalControls.Patch
     }
 
     //make "plants" category count
+    /*
     [HarmonyPatch(typeof(FoodUtility), "WillEat", new Type[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool) })]
     static class FoodUtility_WillEat_Thing_AnimalControlsPatch
     {
@@ -64,7 +65,7 @@ namespace AnimalControls.Patch
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
             FieldInfo Ldef = AccessTools.Field(typeof(Thing), nameof(Thing.def));
-            FieldInfo Lfoods = AccessTools.Field(typeof(ThingCategoryDefOf), nameof(ThingCategoryDefOf.Foods));
+            //FieldInfo Lfoods = AccessTools.Field(typeof(ThingCategoryDefOf), nameof(ThingCategoryDefOf.Foods));
             FieldInfo Lplants = AccessTools.Field(typeof(AnimalControlsDefOf), nameof(AnimalControlsDefOf.Plants));
             MethodInfo LisWithinCategory = AccessTools.Method(typeof(ThingDef), nameof(ThingDef.IsWithinCategory));
             CodeInstruction oldi = null;
@@ -92,6 +93,7 @@ namespace AnimalControls.Patch
             if (!b0) Log.Warning("[Animal Controls] WillEat patch 0 didn't work");
         }
     }
+    */
 
     //add priority to eat growing plants
     //add priority to eat hay (and alike)

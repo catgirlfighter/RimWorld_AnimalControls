@@ -68,7 +68,6 @@
     <Compile Include="Patch\CompatibilityPatches.cs" />
     <Compile Include="Patch\DefGeneratorPatches.cs" />
     <Compile Include="Patch\Dialog_ManageFoodRestrictionsPatches.cs" />
-    <Compile Include="Patch\FoodRestrictionDatabasePatches.cs" />
     <Compile Include="Patch\FoodUtilityPatches.cs" />
     <Compile Include="Patch\Hediff_PregnantPatches.cs" />
     <Compile Include="Patch\JobDriver_InteractAnimalPatches.cs" />

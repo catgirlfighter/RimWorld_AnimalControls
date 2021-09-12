@@ -13,19 +13,19 @@ namespace AnimalControls.Patch
     [HarmonyPatch(typeof(Dialog_ManageFoodRestrictions), MethodType.Constructor, new Type[] { typeof(FoodRestriction) })]
     static class Dialog_ManageFoodRestrictions_Constructor_AnimalControlsPatch
     {
-        static FieldInfo FfoodGlobalFilter = null;
+        static PropertyInfo PFoodGlobalFilter = null;
         static bool Prepare()
         {
 
-            FfoodGlobalFilter = AccessTools.Field(typeof(Dialog_ManageFoodRestrictions), "foodGlobalFilter");
-            if (FfoodGlobalFilter == null)
+            PFoodGlobalFilter = AccessTools.Property(typeof(Dialog_ManageFoodRestrictions), "FoodGlobalFilter");
+            if (PFoodGlobalFilter == null)
                 throw new Exception("Can't get field Dialog_ManageFoodRestrictions.foodGlobalFilter");
             return true;
         }
 
         static void Postfix(ref Dialog_ManageFoodRestrictions __instance)
         {
-            ThingFilter f = (ThingFilter)FfoodGlobalFilter.GetValue(__instance);
+            ThingFilter f = (ThingFilter)PFoodGlobalFilter.GetValue(__instance);
             f.SetAllow(AnimalControlsDefOf.Plants, true, null, null);
         }
     }
@@ -108,7 +108,7 @@ namespace AnimalControls.Patch
                 num = 10f * 3 + 150f * 3;
                 rect = new Rect(num, 0f, 150f, 35f);
             }
-            if (Widgets.ButtonText(rect, AnimalControls.lookingAtDefaults ? "Back".Translate() : "AnimalControlsDefaultsLabel".Translate(), true, true, true))
+            if (Widgets.ButtonText(rect, AnimalControls.lookingAtDefaults ? "Back".Translate() : "AnimalControlsDefaultsLabel".Translate()))
             {
                 AnimalControls.lookingAtDefaults = !AnimalControls.lookingAtDefaults;
             }

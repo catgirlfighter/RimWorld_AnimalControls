@@ -49,16 +49,16 @@ namespace AnimalControls.Patch
                         DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.Plants.defName, i, null);
                     }
                 }
-                else
-                {
-                    if (i.thingCategories == null)
-                    {
-                        i.thingCategories = new List<ThingCategoryDef>();
-                        DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.OtherEdible.defName, i, null);
-                    }
-                    else
-                        i.thingCategories.Add(AnimalControlsDefOf.OtherEdible);
-                }
+                //else
+                //{
+                //    if (i.thingCategories == null)
+                //    {
+                //        i.thingCategories = new List<ThingCategoryDef>();
+                //        DirectXmlCrossRefLoader.RegisterListWantsCrossRef(i.thingCategories, AnimalControlsDefOf.OtherEdible.defName, i, null);
+                //    }
+                //    else
+                //        i.thingCategories.Add(AnimalControlsDefOf.OtherEdible);
+                //}
                 
             }
 
