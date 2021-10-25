@@ -1,4 +1,7 @@
-﻿1.0.11
+﻿1.0.12
+- mod broke due to latest game patch. Fixed an error. I hope nothing else changed;
+
+1.0.11
 - ludeion fixed an issue with pawns ignoring restriction on drugs and plants, so I've removed some crutchy fixes;
 - fixed food restriction window;
 

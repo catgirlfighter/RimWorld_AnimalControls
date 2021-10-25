@@ -20,7 +20,7 @@ namespace AnimalControls.Patch
 
         internal static MethodBase TargetMethod()
         {
-            Type dc12_0 = AccessTools.Inner(typeof(FoodUtility), "<>c__DisplayClass12_0");
+            Type dc12_0 = AccessTools.Inner(typeof(FoodUtility), "<>c__DisplayClass14_0");
             MethodInfo b_0 = AccessTools.Method(dc12_0, "<BestFoodSourceOnMap>b__0");
             return b_0;
         }
