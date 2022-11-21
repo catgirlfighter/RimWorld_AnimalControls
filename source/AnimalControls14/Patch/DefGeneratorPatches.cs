@@ -13,7 +13,7 @@ namespace AnimalControls.Patch
     [HarmonyPatch(typeof(DefGenerator), "GenerateImpliedDefs_PreResolve")]
     static class DefGeneratorr_GenerateImpliedDefs_PreResolve_AnimalControlsPatch
     {
-        static bool Prefix()
+        internal static bool Prefix()
         {
             //return true;
             Type TPlant = typeof(Plant);

@@ -9,7 +9,7 @@ namespace AnimalControls.Patch
     [HarmonyPatch(typeof(PawnComponentsUtility), "AddAndRemoveDynamicComponents")]
     static class PawnComponentsUtility_AddAndRemoveDynamicComponents_AnimalControlsPatch
     {
-        static void Postfix(Pawn pawn)
+        internal static void Postfix(Pawn pawn)
         {
             if (!pawn.RaceProps.Humanlike)
             {

@@ -22,6 +22,12 @@ namespace AnimalControls.Patch
         {
             Type dc12_0 = AccessTools.Inner(typeof(FoodUtility), "<>c__DisplayClass14_0");
             MethodInfo b_0 = AccessTools.Method(dc12_0, "<BestFoodSourceOnMap>b__0");
+
+            if (b_0 == null)
+            {
+                dc12_0 = AccessTools.Inner(typeof(FoodUtility), "<>c__DisplayClass19_0");
+                b_0 = AccessTools.Method(dc12_0, "<BestFoodSourceOnMap_NewTemp>b__0");
+            }
             return b_0;
         }
 
@@ -34,13 +40,15 @@ namespace AnimalControls.Patch
             {
                 MethodInfo LWillEatThing = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat), new Type[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool) });
                 MethodInfo LWillEatDef = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat), new Type[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool) });
+                MethodInfo LWillEat_NewTemp = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat_NewTemp), new Type[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool), typeof(bool) });
                 MethodInfo LbelowNutrition = AccessTools.Method(typeof(FoodUtility_BestFoodSourceOnMap_foodValidator_AnimalControlsPatch), nameof(FoodUtility_BestFoodSourceOnMap_foodValidator_AnimalControlsPatch.belowNutrition));
 
                 if (oldi != null)
                 {
                     yield return oldi;
 
-                    if (i.opcode == OpCodes.Brfalse && oldi.opcode == OpCodes.Call && (oldi.operand == (object)LWillEatDef || oldi.operand == (object)LWillEatThing))
+                    if (i.opcode == OpCodes.Brfalse && oldi.opcode == OpCodes.Call 
+                    && (oldi.operand == (object)LWillEatDef || oldi.operand == (object)LWillEatThing || oldi.operand == (object)LWillEat_NewTemp))
                     {
                         Label l = (Label)i.operand;
                         yield return new CodeInstruction(OpCodes.Brfalse, l);
@@ -101,7 +109,7 @@ namespace AnimalControls.Patch
     [HarmonyPatch(typeof(FoodUtility), "FoodOptimality")]
     static class FoodUtility_FoodOptimality
     {
-        static void Postfix(ref float __result, Pawn eater, Thing foodSource, ThingDef foodDef, float dist, bool takingToInventory = false)
+        internal static void Postfix(ref float __result, Pawn eater, Thing foodSource, ThingDef foodDef, float dist, bool takingToInventory = false)
         {
             float modifier = 0f;
 

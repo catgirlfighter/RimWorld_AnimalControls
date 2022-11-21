@@ -22,7 +22,8 @@ namespace AnimalControls.Patch
         }
 
         //public static Thing BestFoodInInventory (Pawn holder, Pawn eater = null, FoodPreferability minFoodPref = FoodPreferability.NeverForNutrition, FoodPreferability maxFoodPref = FoodPreferability.MealLavish, float minStackNutrition = 0f, bool allowDrug = false)
-        static Thing BestFoodInInventoryWNutrLimit(Pawn holder, Pawn eater = null, FoodPreferability minFoodPref = FoodPreferability.NeverForNutrition, FoodPreferability maxFoodPref = FoodPreferability.MealLavish, float minStackNutrition = 0f, bool allowDrug = false, float maxIndividualNutrition = 1000f)
+        //public static Thing BestFoodInInventory_NewTemp(Pawn holder, Pawn eater = null, FoodPreferability minFoodPref = FoodPreferability.NeverForNutrition, FoodPreferability maxFoodPref = FoodPreferability.MealLavish, float minStackNutrition = 0f, bool allowDrug = false, bool allowVenerated = false)
+        static Thing BestFoodInInventoryWNutrLimit(Pawn holder, Pawn eater = null, FoodPreferability minFoodPref = FoodPreferability.NeverForNutrition, FoodPreferability maxFoodPref = FoodPreferability.MealLavish, float minStackNutrition = 0f, bool allowDrug = false, bool allowVenerated = false, float maxIndividualNutrition = 1000f)
         {
             if (holder.inventory == null) return null;
             if (eater == null) eater = holder;
@@ -32,7 +33,7 @@ namespace AnimalControls.Patch
                 Thing thing = innerContainer[i];
                 var nutrition = thing.GetStatValue(StatDefOf.Nutrition, true);
                 if (thing.def.IsNutritionGivingIngestible && thing.IngestibleNow
-                    && eater.WillEat(thing, holder, true)
+                    && eater.WillEat_NewTemp(thing, holder, true, allowVenerated)
                     && thing.def.ingestible.preferability >= minFoodPref
                     && thing.def.ingestible.preferability <= maxFoodPref
                     && (allowDrug || !thing.def.IsDrug)
@@ -46,10 +47,15 @@ namespace AnimalControls.Patch
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
-            MethodInfo LBestFoodInInventory = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodInInventory));
+            //MethodInfo LBestFoodInInventory = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodInInventory));
+            MethodInfo LBestFoodInInventory = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodInInventory_NewTemp));
             MethodInfo LBestFoodInInventoryWNutrLimit = AccessTools.Method(typeof(JobDriver_InteractAnimal_StartFeedAnimal_Toil_initAction_AnimalControlsPatch), nameof(JobDriver_InteractAnimal_StartFeedAnimal_Toil_initAction_AnimalControlsPatch.BestFoodInInventoryWNutrLimit));
             MethodInfo LForceWait = AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.ForceWait));
             MethodInfo LPayAttention = AccessTools.Method(typeof(JobDriver_PayAttention), nameof(JobDriver_PayAttention.ForcePayAttention));
+
+            bool b0 = false;
+            bool b1 = false;
+            bool b2 = false;
 
             foreach (var i in instrs)
             {
@@ -58,21 +64,27 @@ namespace AnimalControls.Patch
                 {
                     i.opcode = OpCodes.Ldc_I4_S;
                     i.operand = 9;
+                    b0 = true;
                 }
 
                 if (i.opcode == OpCodes.Call && i.operand == (object)LBestFoodInInventory)
                 {
                     i.operand = LBestFoodInInventoryWNutrLimit;
                     yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
+                    b1 = true;
                 }
 
                 if (i.opcode == OpCodes.Call && i.operand == (object)LForceWait)
                 {
                     i.operand = LPayAttention;
+                    b2 = true;
                 }
 
                 yield return i;
             }
+            if (!b0) Log.Warning("JobDriver_InteractAnimal_StartFeedAnimal_Patch0 didn't work");
+            if (!b1) Log.Warning("JobDriver_InteractAnimal_StartFeedAnimal_Patch1 didn't work");
+            if (!b2) Log.Warning("JobDriver_InteractAnimal_StartFeedAnimal_Patch2 didn't work");
         }
     }
 

@@ -48,6 +48,7 @@ namespace AnimalControls.Patch
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
             MethodInfo LbestFoodSourceOnMap = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap));
+            MethodInfo LbestFoodSourceOnMap_NewTemp = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap_NewTemp));
             MethodInfo LsetMaxNutrition = AccessTools.Method(typeof(AnimalControls), nameof(AnimalControls.SetBestFoodSourceOnMap_maxNutrition));
             //
             CodeInstruction oldi = null;
@@ -55,13 +56,17 @@ namespace AnimalControls.Patch
             bool b2 = false;
             yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
             oldi = new CodeInstruction(OpCodes.Call, LsetMaxNutrition);
+            //Log.Message($"m1 = {LbestFoodSourceOnMap}");
+            //Log.Message($"m2 = {LbestFoodSourceOnMap_NewTemp}");
             foreach (var i in instrs)
             {
                 //Log.Message($"{i.opcode},{i.operand}");
                 if (oldi != null)
                 {
                     yield return oldi;
-                    if (i.opcode == OpCodes.Stloc_1 && oldi.opcode == OpCodes.Call && oldi.operand == (object)LbestFoodSourceOnMap)
+                    if (i.opcode == OpCodes.Stloc_1 
+                    && oldi.opcode == OpCodes.Call 
+                    && (oldi.operand == (object)LbestFoodSourceOnMap || oldi.operand == (object)LbestFoodSourceOnMap_NewTemp))
                     {
                         yield return i;
 
@@ -83,8 +88,8 @@ namespace AnimalControls.Patch
             }
             //
             yield return oldi;
-            if (!b1) Log.Warning("[Animal Controls] TakeFoodForAnimalInteractJob patch 1 didn't work");
-            if (!b2) Log.Warning("[Animal Controls] TakeFoodForAnimalInteractJob patch 2 didn't work");
+            if (!b1) Log.Warning("[Animal Controls] WorkGiver_InteractAnimal_TakeFoodForAnimalInteractJob patch 1 didn't work");
+            if (!b2) Log.Warning("[Animal Controls] WorkGiver_InteractAnimal_TakeFoodForAnimalInteractJob patch 2 didn't work");
         }
     }
 }
