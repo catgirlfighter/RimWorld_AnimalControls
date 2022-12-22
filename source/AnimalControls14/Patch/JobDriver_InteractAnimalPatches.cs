@@ -52,6 +52,7 @@ namespace AnimalControls.Patch
             MethodInfo LBestFoodInInventoryWNutrLimit = AccessTools.Method(typeof(JobDriver_InteractAnimal_StartFeedAnimal_Toil_initAction_AnimalControlsPatch), nameof(JobDriver_InteractAnimal_StartFeedAnimal_Toil_initAction_AnimalControlsPatch.BestFoodInInventoryWNutrLimit));
             MethodInfo LForceWait = AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.ForceWait));
             MethodInfo LPayAttention = AccessTools.Method(typeof(JobDriver_PayAttention), nameof(JobDriver_PayAttention.ForcePayAttention));
+            FieldInfo LTrainAnimalNutritionLimit = AccessTools.Field(typeof(AnimalControls), nameof(AnimalControls.TrainAnimalNutritionLimit));
 
             bool b0 = false;
             bool b1 = false;
@@ -63,14 +64,15 @@ namespace AnimalControls.Patch
                 if (i.opcode == OpCodes.Ldc_I4_5)
                 {
                     i.opcode = OpCodes.Ldc_I4_S;
-                    i.operand = 9;
+                    i.operand = (int)FoodPreferability.MealLavish;
                     b0 = true;
                 }
 
                 if (i.opcode == OpCodes.Call && i.operand == (object)LBestFoodInInventory)
                 {
                     i.operand = LBestFoodInInventoryWNutrLimit;
-                    yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
+                    //yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
+                    yield return new CodeInstruction(OpCodes.Ldsfld, LTrainAnimalNutritionLimit);
                     b1 = true;
                 }
 

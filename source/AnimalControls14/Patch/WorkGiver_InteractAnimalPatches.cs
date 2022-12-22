@@ -50,11 +50,13 @@ namespace AnimalControls.Patch
             MethodInfo LbestFoodSourceOnMap = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap));
             MethodInfo LbestFoodSourceOnMap_NewTemp = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap_NewTemp));
             MethodInfo LsetMaxNutrition = AccessTools.Method(typeof(AnimalControls), nameof(AnimalControls.SetBestFoodSourceOnMap_maxNutrition));
+            FieldInfo LTrainAnimalNutritionLimit = AccessTools.Field(typeof(AnimalControls), nameof(AnimalControls.TrainAnimalNutritionLimit));
             //
             CodeInstruction oldi = null;
             bool b1 = false;
             bool b2 = false;
-            yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
+            //yield return new CodeInstruction(OpCodes.Ldc_R4, AnimalControls.TrainAnimalNutritionLimit);
+            yield return new CodeInstruction(OpCodes.Ldsfld, LTrainAnimalNutritionLimit);
             oldi = new CodeInstruction(OpCodes.Call, LsetMaxNutrition);
             //Log.Message($"m1 = {LbestFoodSourceOnMap}");
             //Log.Message($"m2 = {LbestFoodSourceOnMap_NewTemp}");
@@ -80,7 +82,7 @@ namespace AnimalControls.Patch
                 if (i.opcode == OpCodes.Ldc_I4_5)
                 {
                     i.opcode = OpCodes.Ldc_I4_S;
-                    i.operand = 9;
+                    i.operand = (int)FoodPreferability.MealLavish;
                     b2 = true;
                 }
                 //

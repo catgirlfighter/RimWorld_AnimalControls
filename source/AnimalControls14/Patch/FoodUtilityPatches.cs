@@ -35,12 +35,14 @@ namespace AnimalControls.Patch
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
         {
             bool b0 = false;
+            bool b1 = false;
             CodeInstruction oldi = null;
             foreach (var i in instrs)
             {
                 MethodInfo LWillEatThing = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat), new Type[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool) });
                 MethodInfo LWillEatDef = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat), new Type[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool) });
-                MethodInfo LWillEat_NewTemp = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat_NewTemp), new Type[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool), typeof(bool) });
+                MethodInfo LWillEat_NewTempThing = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat_NewTemp), new Type[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool), typeof(bool) });
+                MethodInfo LWillEat_NewTempDef = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.WillEat_NewTemp), new Type[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool), typeof(bool) });
                 MethodInfo LbelowNutrition = AccessTools.Method(typeof(FoodUtility_BestFoodSourceOnMap_foodValidator_AnimalControlsPatch), nameof(FoodUtility_BestFoodSourceOnMap_foodValidator_AnimalControlsPatch.belowNutrition));
 
                 if (oldi != null)
@@ -48,7 +50,7 @@ namespace AnimalControls.Patch
                     yield return oldi;
 
                     if (i.opcode == OpCodes.Brfalse && oldi.opcode == OpCodes.Call 
-                    && (oldi.operand == (object)LWillEatDef || oldi.operand == (object)LWillEatThing || oldi.operand == (object)LWillEat_NewTemp))
+                    && (oldi.operand == (object)LWillEatDef || oldi.operand == (object)LWillEat_NewTempDef))
                     {
                         Label l = (Label)i.operand;
                         yield return new CodeInstruction(OpCodes.Brfalse, l);
@@ -56,17 +58,29 @@ namespace AnimalControls.Patch
                         yield return new CodeInstruction(OpCodes.Call, LbelowNutrition);
                         b0 = true;
                     }
+
+                    if (i.opcode == OpCodes.Brfalse && oldi.opcode == OpCodes.Call
+                    && (oldi.operand == (object)LWillEatThing || oldi.operand == (object)LWillEat_NewTempThing))
+                    {
+                        Label l = (Label)i.operand;
+                        yield return new CodeInstruction(OpCodes.Brfalse, l);
+                        yield return new CodeInstruction(OpCodes.Ldarg_1);
+                        yield return new CodeInstruction(OpCodes.Call, LbelowNutrition);
+                        b1 = true;
+                    }
                 }
                 oldi = i;
             }
             yield return oldi;
             if (!b0) Log.Warning("[Animal Controls] BestFoodSourceOnMap patch 0 didn't work");
+            if (!b1) Log.Warning("[Animal Controls] BestFoodSourceOnMap patch 1 didn't work");
         }
     }
 
     //make "plants" category count
     /*
-    [HarmonyPatch(typeof(FoodUtility), "WillEat", new Type[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool) })]
+    [HarmonyPatch(typeof(FoodUtility), "WillEat_NewTemp", new Type[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool), typeof(bool) })]
+
     static class FoodUtility_WillEat_Thing_AnimalControlsPatch
     {
         [HarmonyTranspiler]
