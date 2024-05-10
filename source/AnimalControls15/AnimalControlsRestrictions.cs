@@ -14,9 +14,9 @@ namespace AnimalControls
         {
         }
 
-        //public AnimalControlsRestrictions(Game game)
-        //{
-        //}
+        public AnimalControlsRestrictions(Game game)
+        {
+        }
 
         public override void ExposeData()
         {
