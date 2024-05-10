@@ -13,9 +13,21 @@ namespace AnimalControls.Patch
     {
         static void SetValues(Pawn mother, Pawn father, Pawn pawn)
         {
-            if (pawn.playerSettings == null || (mother == null || mother.playerSettings == null) && (father == null || father.playerSettings == null)) return;
-            if (mother == null || mother.playerSettings == null)
-                pawn.playerSettings.AreaRestrictionInPawnCurrentMap = father.playerSettings.AreaRestrictionInPawnCurrentMap;
+            if (pawn.playerSettings == null || (mother?.playerSettings == null) && (father?.playerSettings == null)) return;
+            if (mother?.playerSettings == null)
+            {
+                if (father?.playerSettings != null)
+                {
+                    pawn.playerSettings.AreaRestrictionInPawnCurrentMap = father.playerSettings.AreaRestrictionInPawnCurrentMap;
+                    pawn.playerSettings.medCare = father.playerSettings.medCare;
+                }
+                else
+                {
+                    pawn.playerSettings.medCare = mother.playerSettings.medCare;
+                }
+
+
+            }
 
             if (pawn.foodRestriction != null)
                 if (mother.foodRestriction != null)
@@ -25,7 +37,7 @@ namespace AnimalControls.Patch
         }
 
         [HarmonyTranspiler]
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs)
         {
             MethodBase Lset_ar = AccessTools.Method(typeof(Pawn_PlayerSettings), "set_AreaRestrictionInPawnCurrentMap");
             MethodBase Lset_values = AccessTools.Method(typeof(Hediff_Pregnant_DoBirthSpawn_AnimalControlsPatch), nameof(SetValues));

@@ -45,10 +45,9 @@ namespace AnimalControls.Patch
         }
 
         [HarmonyTranspiler]
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs)
         {
             MethodInfo LBestFoodInInventory = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodInInventory));
-            //MethodInfo LBestFoodInInventory = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodInInventory_NewTemp));
             MethodInfo LBestFoodInInventoryWNutrLimit = AccessTools.Method(typeof(JobDriver_InteractAnimal_StartFeedAnimal_Toil_initAction_AnimalControlsPatch), nameof(JobDriver_InteractAnimal_StartFeedAnimal_Toil_initAction_AnimalControlsPatch.BestFoodInInventoryWNutrLimit));
             MethodInfo LForceWait = AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.ForceWait));
             MethodInfo LPayAttention = AccessTools.Method(typeof(JobDriver_PayAttention), nameof(JobDriver_PayAttention.ForcePayAttention));
@@ -103,7 +102,7 @@ namespace AnimalControls.Patch
         }
 
         [HarmonyTranspiler]
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs)
         {
             MethodInfo LPayAttention = AccessTools.Method(typeof(JobDriver_PayAttention), nameof(JobDriver_PayAttention.ForcePayAttention));
             FieldInfo Ltoil = AccessTools.Field(dc19_0, "toil");

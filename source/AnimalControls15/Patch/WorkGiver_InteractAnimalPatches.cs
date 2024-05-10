@@ -13,7 +13,7 @@ namespace AnimalControls.Patch
     static class WorkGiver_InteractAnimal_HasFoodToInteractAnimal_AnimalControlsPatch
     {
         [HarmonyTranspiler]
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs)
         {
             CodeInstruction oldi = null;
             FieldInfo Lpref = AccessTools.Field(typeof(IngestibleProperties), "preferability");
@@ -45,10 +45,9 @@ namespace AnimalControls.Patch
     [HarmonyPatch(typeof(WorkGiver_InteractAnimal), "TakeFoodForAnimalInteractJob")]
     static class WorkGiver_InteractAnimal_TakeFoodForAnimalInteractJob_AnimalControlsPatch
     {
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs, ILGenerator il)
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instrs)
         {
             MethodInfo LbestFoodSourceOnMap = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap));
-            //MethodInfo LbestFoodSourceOnMap_NewTemp = AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap_NewTemp));
             MethodInfo LsetMaxNutrition = AccessTools.Method(typeof(AnimalControls), nameof(AnimalControls.SetBestFoodSourceOnMap_maxNutrition));
             FieldInfo LTrainAnimalNutritionLimit = AccessTools.Field(typeof(AnimalControls), nameof(AnimalControls.TrainAnimalNutritionLimit));
             //
