@@ -25,12 +25,12 @@ namespace AnimalControls.Patch
     {
         public static void Postfix(Pawn_FoodRestrictionTracker __instance, ref FoodPolicy __result, Pawn getter)
         {
-            if (__result == null || __instance.pawn == getter) return;
+            if (__result == null || __instance?.pawn == null || __instance.pawn == getter) return;
 
-            if (__instance.pawn.RaceProps.Animal && getter != null && getter.Faction == Faction.OfPlayer)
+            if (__instance.pawn?.RaceProps?.Animal == true && getter != null && getter.Faction == Find.FactionManager.OfPlayer)
             {
-                var comp = Current.Game.GetComponent<AnimalControlsRestrictions>();
-                if (comp.HandlerRestriction == null) return;
+                var comp = Current.Game?.GetComponent<AnimalControlsRestrictions>();
+                if (comp?.HandlerRestriction == null) return;
                 __result = comp.HandlerRestriction;
             }
         }
@@ -42,14 +42,14 @@ namespace AnimalControls.Patch
     {
         private static FoodPolicy GetDefaultFoodRestriction(FoodRestrictionDatabase database, Pawn_FoodRestrictionTracker tracker)
         {
-            if (tracker.pawn.RaceProps.Animal)
+            if (tracker?.pawn?.RaceProps?.Animal == true)
             {
-                var comp = Current.Game.GetComponent<AnimalControlsRestrictions>();
-                if (comp.DefaultRestriction == null) return database.DefaultFoodRestriction();
+                var comp = Current.Game?.GetComponent<AnimalControlsRestrictions>();
+                if (comp?.DefaultRestriction == null) return database?.DefaultFoodRestriction();
                 return comp.DefaultRestriction;
             }
             else
-                return database.DefaultFoodRestriction();
+                return database?.DefaultFoodRestriction();
         }
 
         [HarmonyTranspiler]
