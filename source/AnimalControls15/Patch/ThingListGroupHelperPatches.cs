@@ -18,7 +18,7 @@ namespace AnimalControls.Patch
                 return true;
 
             Type TPlant = typeof(Plant);
-            __result = (def.IsNutritionGivingIngestible && def.thingClass != TPlant && !def.thingClass.IsSubclassOf(TPlant)) || def.thingClass == typeof(Building_NutrientPasteDispenser);
+            __result = (def.IsNutritionGivingIngestible && def.thingClass != TPlant && !def.thingClass.IsSubclassOf(TPlant)) || typeof(Building_NutrientPasteDispenser).IsAssignableFrom(def.thingClass);
             return false;
         }
     }
