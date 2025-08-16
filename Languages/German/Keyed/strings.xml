@@ -10,4 +10,6 @@
 	<ac_animals_pay_attention_label>Die Tiere achten während der Interaktion auf den Pfleger.</ac_animals_pay_attention_label>
 	<ac_animals_pay_attention_note>Kein halbtägiges Herumjagen mehr beim Training</ac_animals_pay_attention_note>
 	<ac_nutrition_limit_per_piece>Nährwertbegrenzung pro Futtermittel zum Zähmen: {0} (default = 0.1)</ac_nutrition_limit_per_piece>
+	<ac_animals_prefer_corpses>Tiere bevorzugen es Leichen zu essen</ac_animals_prefer_corpses>
+	<ac_animals_prefer_corpses_note>Damit entsorgen Tiere automatisch Leichen, falls ihr Speiseplan dies zulässt</ac_animals_prefer_corpses_note>
 </LanguageData>
