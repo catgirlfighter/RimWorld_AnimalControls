@@ -30,16 +30,16 @@ namespace AnimalControls.Patch
     }
 
     [HarmonyPatch(typeof(Dialog_ManagePolicies<FoodPolicy>), "DoWindowContents")]
-    static class Dialog_ManageFoodRestrictions_DoWindowContents_AnimalControlsPatch
+    public static class Dialog_ManageFoodRestrictions_DoWindowContents_AnimalControlsPatch
     {
-        static TaggedString asText(this FoodPolicy restriction)
+        public static TaggedString asText(this FoodPolicy restriction)
         {
             return restriction == null ? "AnimalControlsDefault".Translate() : (TaggedString)restriction.label;
         }
 
-        static bool DefaultsMenu(Dialog_ManageFoodPolicies dialog, Rect inRect)
+        public static bool DefaultsMenu(Rect inRect, bool ForceShow = false)
         {
-            if (!AnimalControls.lookingAtDefaults) return false;
+            if (!ForceShow && !AnimalControls.lookingAtDefaults) return false;
 
             var comp = Current.Game.GetComponent<AnimalControlsRestrictions>();
 
@@ -105,7 +105,7 @@ namespace AnimalControls.Patch
             if (!AnimalControls.lookingAtDefaults)
                 return true;
             Rect rect = new Rect(0f, -10f, inRect.width, inRect.height - 40f - Window.CloseButSize.y).ContractedBy(10f);
-            DefaultsMenu(__instance, rect);
+            DefaultsMenu(rect);
 
             return false;
         }

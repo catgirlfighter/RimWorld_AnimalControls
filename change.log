@@ -1,4 +1,8 @@
-﻿1.2.0
+﻿1.2.1
+- added an option to make animals prioritize corpses. Courtesy of @YodaDoge, they literally made this option work!
+- made so contents of "Defaults" screen are shown in mod settings, so you can change settings if "Defaults" button isn't showing (for plethora of reasons). Contents are shown only when your current colony is running.
+
+1.2.0
 - 1.6;
 
 1.1.3

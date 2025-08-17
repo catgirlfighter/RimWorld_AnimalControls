@@ -1,6 +1,9 @@
-﻿using System;
+﻿using RimWorld;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
+using AnimalControls.Patch;
 
 namespace AnimalControls
 {
@@ -8,10 +11,10 @@ namespace AnimalControls
     {
 
         public static bool allow_feeding_with_plants = true;
-		public static bool animals_prefer_corpses = false;
+        public static bool animals_prefer_corpses = false;
         public static bool animals_pay_attention = true;
 
-		public static void DoSettingsWindowContents(Rect inRect)
+        public static void DoSettingsWindowContents(Rect inRect)
         {
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.Begin(inRect);
@@ -20,6 +23,13 @@ namespace AnimalControls
 			listing_Standard.CheckboxLabeled("ac_animals_pay_attention_label".Translate(), ref animals_pay_attention, "ac_animals_pay_attention_note".Translate());
             listing_Standard.Label("ac_nutrition_limit_per_piece".Translate(Math.Round(AnimalControls.TrainAnimalNutritionLimit, 2).ToString()));
             AnimalControls.TrainAnimalNutritionLimit = listing_Standard.Slider(AnimalControls.TrainAnimalNutritionLimit, 0f, 10f);
+            var comp = Current.Game?.GetComponent<AnimalControlsRestrictions>();
+            if (comp != null)
+            {
+                listing_Standard.Label("AnimalControlsDefaultsLabel".Translate());
+                var dialogRect = new Rect(0f, 6 * 26f, inRect.width, inRect.height);
+                Dialog_ManageFoodRestrictions_DoWindowContents_AnimalControlsPatch.DefaultsMenu(dialogRect, true);
+            }
             listing_Standard.End();
         }
 

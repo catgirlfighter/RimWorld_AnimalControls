@@ -79,10 +79,10 @@ namespace AnimalControls.Patch
     }
 
     //make "plants" category count
-
     //add priority to eat growing plants
     //add priority to eat hay (and alike)
     //add priority to eat food with unconditional bad mood effects
+    //add priority to eat corpses
     [HarmonyPatch(typeof(FoodUtility), "FoodOptimality")]
     static class FoodUtility_FoodOptimality
     {
@@ -113,7 +113,7 @@ namespace AnimalControls.Patch
 				}
 			}	
             //
-			FoodPreferability pref = foodDef.ingestible.preferability;
+            FoodPreferability pref = foodDef.ingestible.preferability;
             switch (pref)
             {
                 case FoodPreferability.DesperateOnlyForHumanlikes:

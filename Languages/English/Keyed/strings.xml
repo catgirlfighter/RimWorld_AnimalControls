@@ -5,11 +5,11 @@
 	<AnimalControlsAnimalRestrictionLabel>Default Animal Restriction</AnimalControlsAnimalRestrictionLabel>
 	<AnimalControlsHandlerRestrictionLabel>Handler Restriction</AnimalControlsHandlerRestrictionLabel>
 	<AnimalControlsDefaultsLabel>Defaults</AnimalControlsDefaultsLabel>
-	<ac_allow_feeding_with_plants_label>Allow pawns to feed animals with hay and encourage it.</ac_allow_feeding_with_plants_label>
-	<ac_allow_feeding_with_plants_note>Animals also encouraged to prefer non-human food more.</ac_allow_feeding_with_plants_note>
+	<ac_allow_feeding_with_plants_label>Allow pawns to feed animals with hay and encourage it</ac_allow_feeding_with_plants_label>
+	<ac_allow_feeding_with_plants_note>Animals also encouraged to prefer non-human food more</ac_allow_feeding_with_plants_note>
 	<ac_animals_pay_attention_label>Animals will pay attention to the handler during interaction</ac_animals_pay_attention_label>
 	<ac_animals_pay_attention_note>No more chasing around for half a day when training</ac_animals_pay_attention_note>
 	<ac_nutrition_limit_per_piece>Nutrition limit per piece of food for taming: {0} (default = 0.1)</ac_nutrition_limit_per_piece>
-	<ac_animals_prefer_corpses>Animals prefer eating corpses.</ac_animals_prefer_corpses>
-	<ac_animals_prefer_corpses_note>Animals will dispose all those pesky raider corpses for you, if allowed in their food policy</ac_animals_prefer_corpses_note>
+	<ac_animals_prefer_corpses>Animals prefer eating corpses</ac_animals_prefer_corpses>
+	<ac_animals_prefer_corpses_note>Animals will dispose of all those pesky raider corpses for you, if it's allowed by their food policy</ac_animals_prefer_corpses_note>
 </LanguageData>
