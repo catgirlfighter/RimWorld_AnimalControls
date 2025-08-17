@@ -103,8 +103,17 @@ namespace AnimalControls.Patch
                         modifier += 25f;
                 }
             }
+
+            if (Settings.animals_prefer_corpses)
+            {
+				if (eater.RaceProps.Eats(FoodTypeFlags.Corpse))
+				{
+					if (foodDef.ingestible.foodType == FoodTypeFlags.Corpse)
+						modifier += 300f;
+				}
+			}	
             //
-            FoodPreferability pref = foodDef.ingestible.preferability;
+			FoodPreferability pref = foodDef.ingestible.preferability;
             switch (pref)
             {
                 case FoodPreferability.DesperateOnlyForHumanlikes:

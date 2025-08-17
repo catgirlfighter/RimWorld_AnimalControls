@@ -10,4 +10,6 @@
   <ac_animals_pay_attention_label>动物在交互期间将等候训练者</ac_animals_pay_attention_label>
   <ac_animals_pay_attention_note>杜绝训练期间的"你跑我追"</ac_animals_pay_attention_note>
   <ac_nutrition_limit_per_piece>每次训练所用食物的营养上限: {0} (默认 = 0.1)</ac_nutrition_limit_per_piece>
+  <ac_animals_prefer_corpses>动物更喜欢吃尸体</ac_animals_prefer_corpses>
+  <ac_animals_prefer_corpses_note>如果允许在它们的食物政策中，动物会帮你处理掉所有那些讨厌的袭击者尸体</ac_animals_prefer_corpses_note>
 </LanguageData>
